@@ -1,4 +1,4 @@
-package com.example.dailymeteo.repositiry
+package com.example.dailymeteo.domain
 
 data class Weather(
     val city: City = getDefaultCity(),

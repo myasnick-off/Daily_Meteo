@@ -1,6 +1,6 @@
 package com.example.dailymeteo.viewmodel
 
-import com.example.dailymeteo.repositiry.Weather
+import com.example.dailymeteo.domain.Weather
 
 sealed class MainAppState {
     object Loading: MainAppState()

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
 import com.example.dailymeteo.hide
-import com.example.dailymeteo.repositiry.Weather
+import com.example.dailymeteo.domain.Weather
 import com.example.dailymeteo.show
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
