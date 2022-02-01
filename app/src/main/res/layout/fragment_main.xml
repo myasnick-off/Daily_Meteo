@@ -22,11 +22,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/condition_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="@dimen/margin_48"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_baseline_wb_sunny_96"
+            tools:src="@drawable/ic_baseline_wb_sunny_96"
             />
 
         <TextView
@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="@dimen/text_64"
-            android:layout_marginTop="@dimen/margin_24"
+            android:textSize="@dimen/text_48"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_gravity="center_horizontal"
             tools:text="@string/default_temp"/>
 
@@ -43,7 +43,6 @@
             android:id="@+id/feels_temp_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:textSize="@dimen/text_18"
             android:layout_marginTop="@dimen/margin_24"
             android:layout_gravity="center_horizontal"

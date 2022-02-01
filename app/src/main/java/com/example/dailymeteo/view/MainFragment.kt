@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
 import com.example.dailymeteo.domain.Weather
 import com.example.dailymeteo.domain.getDefaultCity
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
+import com.example.dailymeteo.utils.ICON_BASE_URL
+import com.example.dailymeteo.utils.ICON_EXT
+import com.example.dailymeteo.utils.ICON_LARGE
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
 
@@ -69,11 +73,13 @@ class MainFragment: Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showData(weather: Weather) = with(binding) {
+        cityTextView.text = weather.city.name
         tempTextView.text = "${weather.current.temp} ${getString(R.string.temp_val)}"
-        feelsTempTextView.text = "${weather.current.feelsLike} ${getString(R.string.temp_val)}"
+        feelsTempTextView.text = "${getString(R.string.feels_like)} ${weather.current.feelsLike} ${getString(R.string.temp_val)}"
         humidityTextView.text = "${weather.current.humidity} ${getString(R.string.humidity_val)}"
         pressureTextView.text = "${weather.current.pressure} ${getString(R.string.pressure_val)}"
         windTextView.text = "${weather.current.windSpeed} ${getString(R.string.speed_val)}"
+        conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
     }
 
     companion object {
