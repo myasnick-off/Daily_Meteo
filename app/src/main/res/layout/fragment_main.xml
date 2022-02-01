@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_4">
+
+        <TextView
+            android:id="@+id/city_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/margin_48"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/city_name"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/condition_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_48"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_baseline_wb_sunny_96"
+            />
+
+        <TextView
+            android:id="@+id/temp_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_64"
+            android:layout_marginTop="@dimen/margin_24"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/default_temp"/>
+
+        <TextView
+            android:id="@+id/feels_temp_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/margin_24"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/feels_like"/>
+
+        <TextView
+            android:id="@+id/humidity_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/margin_48"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/humidity"/>
+
+        <TextView
+            android:id="@+id/pressure_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/pressure"/>
+
+        <TextView
+            android:id="@+id/wind_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/wind"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/main_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
