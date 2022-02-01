@@ -18,9 +18,4 @@ class RepositoryImpl(private val remoteDataSource: RemoteDataSource): Repository
     override fun getGeoDataFromServer(cityName: String, callback: Callback<LocationsDTO>) {
         remoteDataSource.getGeoData(cityName, callback)
     }
-
-    //TODO удалить заглушку
-    override fun getDataFromServer(): Weather {
-        return Weather()
-    }
 }

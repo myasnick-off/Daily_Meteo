@@ -1,7 +1,7 @@
 package com.example.dailymeteo.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dailymeteo.R
 
 class MainActivity : AppCompatActivity() {

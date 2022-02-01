@@ -8,6 +8,4 @@ import retrofit2.Callback
 interface Repository {
     fun getAllMeteoDataFromServer(lat: Double, lon: Double, callback: Callback<AllMeteoDataDTO>)
     fun getGeoDataFromServer(cityName: String, callback: Callback<LocationsDTO>)
-
-    fun getDataFromServer(): Weather //TODO удалить заглушку
 }

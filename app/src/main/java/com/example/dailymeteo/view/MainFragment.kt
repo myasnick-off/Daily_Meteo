@@ -10,8 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
-import com.example.dailymeteo.hide
 import com.example.dailymeteo.domain.Weather
+import com.example.dailymeteo.domain.getDefaultCity
+import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
@@ -40,7 +41,7 @@ class MainFragment: Fragment() {
 
         val observer = Observer<MainAppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getWeatherData()
+        requestData()
     }
 
     private fun renderData(appState: MainAppState) = with(binding) {
@@ -52,6 +53,7 @@ class MainFragment: Fragment() {
             }
             is MainAppState.Error -> {
                 mainProgressBar.hide()
+                //TODO добавить обработку ошибки
             }
         }
     }
@@ -61,13 +63,17 @@ class MainFragment: Fragment() {
         _binding = null
     }
 
+    private fun requestData(){
+        viewModel.getWeatherFromRemoteSource(getDefaultCity())
+    }
+
     @SuppressLint("SetTextI18n")
-    private fun showData(weatherData: Weather) = with(binding) {
-        tempTextView.text = "${weatherData.temp} ${getString(R.string.temp_val)}"
-        feelsTempTextView.text = "${weatherData.feelsLike} ${getString(R.string.temp_val)}"
-        humidityTextView.text = "${weatherData.humidity} ${getString(R.string.humidity_val)}"
-        pressureTextView.text = "${weatherData.pressure} ${getString(R.string.pressure_val)}"
-        windTextView.text = "${weatherData.windSpeed} ${getString(R.string.speed_val)}"
+    private fun showData(weather: Weather) = with(binding) {
+        tempTextView.text = "${weather.current.temp} ${getString(R.string.temp_val)}"
+        feelsTempTextView.text = "${weather.current.feelsLike} ${getString(R.string.temp_val)}"
+        humidityTextView.text = "${weather.current.humidity} ${getString(R.string.humidity_val)}"
+        pressureTextView.text = "${weather.current.pressure} ${getString(R.string.pressure_val)}"
+        windTextView.text = "${weather.current.windSpeed} ${getString(R.string.speed_val)}"
     }
 
     companion object {
