@@ -22,6 +22,7 @@ import com.example.dailymeteo.view.MainActivity
 import com.example.dailymeteo.view.search.SearchFragment
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment: Fragment() {
 
@@ -99,7 +100,7 @@ class MainFragment: Fragment() {
             }
             is MainAppState.Error -> {
                 mainProgressBar.hide()
-                //TODO добавить обработку ошибки
+                Snackbar.make(binding.root, "Some failure!", Snackbar.LENGTH_SHORT).show()
             }
         }
     }

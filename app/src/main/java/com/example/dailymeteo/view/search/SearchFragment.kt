@@ -19,18 +19,16 @@ import com.example.dailymeteo.utils.SEARCH_UNSUCCESSFUL
 import com.example.dailymeteo.view.main.MainFragment
 import com.example.dailymeteo.viewmodel.SearchAppState
 import com.example.dailymeteo.viewmodel.SearchViewModel
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import java.time.Duration
 
 class SearchFragment: Fragment() {
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(SearchViewModel::class.java)
     }
-
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private val adapter = SearchRecyclerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +39,14 @@ class SearchFragment: Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         val observer = Observer<SearchAppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
 
-        binding.searchInputLayout.setEndIconOnClickListener {
+        showCities()
+
+        searchInputLayout.setEndIconOnClickListener {
             val cityName = binding.searchEditText.text.toString()
             requestData(cityName)
         }
@@ -62,7 +62,7 @@ class SearchFragment: Fragment() {
             SearchAppState.Loading -> searchProgressBar.show()
             is SearchAppState.Success -> {
                 searchProgressBar.hide()
-                showData(appState.city)
+                showWeather(appState.city)
             }
             is SearchAppState.Error -> {
                 searchProgressBar.hide()
@@ -71,11 +71,21 @@ class SearchFragment: Fragment() {
         }
     }
 
+    private fun showCities() {
+        adapter.setData(listOf())
+        adapter.setListener(object : ItemClickListener {
+            override fun onItemClicked(pos: Int) {
+                //TODO("Not yet implemented")
+            }
+        })
+        binding.searchRecyclerView.adapter = adapter
+    }
+
     private fun requestData(cityName: String) {
         viewModel.getGeocodingFromRemoteSource(cityName)
     }
 
-    private fun showData(city: City) {
+    private fun showWeather(city: City) {
         val args = Bundle().apply {
             putParcelable(ARG_CITY_NAME, city)
         }
@@ -97,6 +107,10 @@ class SearchFragment: Fragment() {
             }
             else -> {}
         }
+    }
+
+    interface ItemClickListener {
+        fun onItemClicked(pos: Int)
     }
 
     companion object {
