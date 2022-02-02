@@ -12,13 +12,15 @@ class SearchRecyclerAdapter: RecyclerView.Adapter<SearchRecyclerAdapter.CityView
     private var cities: MutableList<City> = mutableListOf()
     private lateinit var itemListener: SearchFragment.ItemClickListener
 
-    fun setData(data: List<City>) {
+    fun setItems(data: List<City>) {
         cities.apply {
             clear()
             addAll(data)
         }
         notifyDataSetChanged()
     }
+
+    fun getItems() = cities
 
     fun setListener(listener: SearchFragment.ItemClickListener) {
         itemListener = listener

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentSearchBinding
 import com.example.dailymeteo.domain.City
+import com.example.dailymeteo.domain.getDefaultCityList
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
 import com.example.dailymeteo.utils.ARG_CITY_NAME
@@ -72,10 +73,11 @@ class SearchFragment: Fragment() {
     }
 
     private fun showCities() {
-        adapter.setData(listOf())
+        adapter.setItems(getDefaultCityList())
         adapter.setListener(object : ItemClickListener {
             override fun onItemClicked(pos: Int) {
-                //TODO("Not yet implemented")
+                val city = adapter.getItems()[pos]
+                showWeather(city)
             }
         })
         binding.searchRecyclerView.adapter = adapter
@@ -94,6 +96,7 @@ class SearchFragment: Fragment() {
             .commit()
     }
 
+    // функция обработки кодов ошибок
     private fun showErrorMessage(error: Int) {
         when(error) {
             SEARCH_NO_RESULTS -> {
@@ -109,6 +112,7 @@ class SearchFragment: Fragment() {
         }
     }
 
+    // интерфейс для обработки кликов на элементы списка
     interface ItemClickListener {
         fun onItemClicked(pos: Int)
     }
