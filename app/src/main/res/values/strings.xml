@@ -10,4 +10,6 @@
     <string name="humidity_val" translatable="false">%</string>
     <string name="pressure_val">mm. Hg</string>
     <string name="speed_val">m/s</string>
+    <string name="search">Search</string>
+    <string name="enter_city_name">Enter city name to search</string>
 </resources>

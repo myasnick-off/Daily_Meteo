@@ -1,6 +1,6 @@
 package com.example.dailymeteo.repositiry
 
-import com.example.dailymeteo.repositiry.dto.geocoding.LocationsDTO
+import com.example.dailymeteo.repositiry.dto.geocoding.CityDTO
 import com.example.dailymeteo.repositiry.dto.weather.AllMeteoDataDTO
 import com.example.dailymeteo.utils.OPEN_WEATHER_API_URL
 import retrofit2.Callback
@@ -21,7 +21,7 @@ class RemoteDataSource {
         weatherAPI.getWeather(lat = lat, lon = lon).enqueue(callback)
     }
 
-    fun getGeoData(cityName: String, callback: Callback<LocationsDTO>) {
+    fun getGeoData(cityName: String, callback: Callback<List<CityDTO>>) {
         weatherAPI.getGeocoding(cityName = cityName).enqueue(callback)
     }
 

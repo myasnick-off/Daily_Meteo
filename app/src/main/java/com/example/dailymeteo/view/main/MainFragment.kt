@@ -1,23 +1,25 @@
-package com.example.dailymeteo.view
+package com.example.dailymeteo.view.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
+import com.example.dailymeteo.domain.City
 import com.example.dailymeteo.domain.Weather
 import com.example.dailymeteo.domain.getDefaultCity
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
+import com.example.dailymeteo.utils.ARG_CITY_NAME
 import com.example.dailymeteo.utils.ICON_BASE_URL
 import com.example.dailymeteo.utils.ICON_EXT
 import com.example.dailymeteo.utils.ICON_LARGE
+import com.example.dailymeteo.view.MainActivity
+import com.example.dailymeteo.view.search.SearchFragment
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
 
@@ -26,10 +28,16 @@ class MainFragment: Fragment() {
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
-
     private var _binding: FragmentMainBinding? = null
-    private val binding: FragmentMainBinding
-    get() = _binding!!
+    private val binding get() = _binding!!
+    private var currentCity: City? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            currentCity = it.getParcelable(ARG_CITY_NAME)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +50,44 @@ class MainFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        appbarInit()
 
         val observer = Observer<MainAppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        requestData()
+        if (currentCity != null) {
+            requestData(currentCity!!)
+        } else {
+            requestData(getDefaultCity())
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_search -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_container,SearchFragment.newInstance(), "")
+                    .commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun appbarInit() {
+        val mainActivity = activity as MainActivity
+        mainActivity.setSupportActionBar(binding.mainToolbar)
+        setHasOptionsMenu(true)
+        // TODO bottomSheetBehavior
     }
 
     private fun renderData(appState: MainAppState) = with(binding) {
@@ -62,13 +104,8 @@ class MainFragment: Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    private fun requestData(){
-        viewModel.getWeatherFromRemoteSource(getDefaultCity())
+    private fun requestData(city: City){
+        viewModel.getWeatherFromRemoteSource(city)
     }
 
     @SuppressLint("SetTextI18n")
@@ -83,6 +120,10 @@ class MainFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(args: Bundle?): MainFragment {
+            return MainFragment().apply {
+                this.arguments = args
+            }
+        }
     }
 }

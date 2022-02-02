@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.4"
+        android:background="@color/black">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,66 +27,65 @@
             android:id="@+id/city_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_18"
-            android:layout_marginTop="@dimen/margin_48"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/city_name"/>
+            android:layout_marginTop="@dimen/margin_64"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"
+            tools:text="@string/city_name" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/condition_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="@dimen/margin_48"
             android:layout_gravity="center_horizontal"
-            tools:src="@drawable/ic_baseline_wb_sunny_96"
-            />
+            android:layout_marginTop="@dimen/margin_48"
+            tools:src="@drawable/ic_baseline_wb_sunny_96" />
 
         <TextView
             android:id="@+id/temp_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_48"
-            android:layout_marginTop="@dimen/margin_8"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/default_temp"/>
+            android:layout_marginTop="@dimen/margin_8"
+            android:textSize="@dimen/text_48"
+            android:textStyle="bold"
+            tools:text="@string/default_temp" />
 
         <TextView
             android:id="@+id/feels_temp_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_18"
-            android:layout_marginTop="@dimen/margin_24"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/feels_like"/>
+            android:layout_marginTop="@dimen/margin_24"
+            android:textSize="@dimen/text_18"
+            tools:text="@string/feels_like" />
 
         <TextView
             android:id="@+id/humidity_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_18"
-            android:layout_marginTop="@dimen/margin_48"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/humidity"/>
+            android:layout_marginTop="@dimen/margin_48"
+            android:textSize="@dimen/text_18"
+            tools:text="@string/humidity" />
 
         <TextView
             android:id="@+id/pressure_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_18"
-            android:layout_marginTop="@dimen/margin_4"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/pressure"/>
+            android:layout_marginTop="@dimen/margin_4"
+            android:textSize="@dimen/text_18"
+            tools:text="@string/pressure" />
 
         <TextView
             android:id="@+id/wind_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_18"
-            android:layout_marginTop="@dimen/margin_4"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/wind"/>
+            android:layout_marginTop="@dimen/margin_4"
+            android:textSize="@dimen/text_18"
+            tools:text="@string/wind" />
 
     </LinearLayout>
 
@@ -81,6 +93,6 @@
         android:id="@+id/main_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

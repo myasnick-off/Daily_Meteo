@@ -9,3 +9,9 @@ const val ICON_LARGE = "@2x"
 const val ICON_EXT = ".png"
 
 const val PRESSURE_INDEX = 0.750063755419211
+
+const val ARG_CITY_NAME = "ARG_CITY_TO_SEARCH"
+
+const val SEARCH_NO_RESULTS = 11
+const val SEARCH_UNSUCCESSFUL = 22
+const val SEARCH_FAILURE = 33

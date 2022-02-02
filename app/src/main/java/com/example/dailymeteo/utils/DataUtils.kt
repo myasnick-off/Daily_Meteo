@@ -1,10 +1,19 @@
 package com.example.dailymeteo.utils
 
 import com.example.dailymeteo.domain.*
+import com.example.dailymeteo.repositiry.dto.geocoding.CityDTO
 import com.example.dailymeteo.repositiry.dto.weather.AllMeteoDataDTO
 import com.example.dailymeteo.repositiry.dto.weather.DailyDTO
 import java.text.SimpleDateFormat
 import java.util.*
+
+fun convertDTOtoCity(locationsDTO: List<CityDTO>): City {
+    return City(
+        name = if (locationsDTO.first().localNames.containsKey("ru")) locationsDTO.first().localNames["ru"]!! else locationsDTO.first().name,
+        locationsDTO.first().lat,
+        locationsDTO.first().lon
+    )
+}
 
 fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, cityName: String): Weather {
     return Weather(
