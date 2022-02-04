@@ -10,6 +10,7 @@ import coil.load
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
 import com.example.dailymeteo.domain.City
+import com.example.dailymeteo.domain.Daily
 import com.example.dailymeteo.domain.Weather
 import com.example.dailymeteo.domain.getDefaultCity
 import com.example.dailymeteo.hide
@@ -118,6 +119,14 @@ class MainFragment: Fragment() {
         pressureTextView.text = "${weather.current.pressure} ${getString(R.string.pressure_val)}"
         windTextView.text = "${weather.current.windSpeed} ${getString(R.string.speed_val)}"
         conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
+        initRecyclerView(weather.daily)
+    }
+
+    private fun initRecyclerView(daily: List<Daily>) {
+        val adapter = MainRecyclerAdapter().apply {
+            setItems(daily)
+        }
+        binding.mainRecyclerView.adapter = adapter
     }
 
     companion object {

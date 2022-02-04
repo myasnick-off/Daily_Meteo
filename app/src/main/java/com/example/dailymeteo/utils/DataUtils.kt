@@ -36,51 +36,48 @@ fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, cityName: String): Weathe
     )
 }
 
-private fun convertDTOtoDailyWeather(daily: DailyDTO): Daily {
+private fun convertDTOtoDailyWeather(dailyDTO: DailyDTO): Daily {
     return Daily(
-        getDayMonthFromDate(daily.time),
-        getWeekDayFromDate(daily.time),
-        getTimeFromDate(daily.sunrise),
-        getTimeFromDate(daily.sunset),
+        getDayMonthFromDate(dailyDTO.time),
+        getWeekDayFromDate(dailyDTO.time),
+        getTimeFromDate(dailyDTO.sunrise),
+        getTimeFromDate(dailyDTO.sunset),
         DailyTemp(
-            daily.temp.morning.toInt(),
-            daily.temp.day.toInt(),
-            daily.temp.evening.toInt(),
-            daily.temp.night.toInt(),
-            daily.temp.min.toInt(),
-            daily.temp.max.toInt()
+            dailyDTO.temp.morning.toInt(),
+            dailyDTO.temp.day.toInt(),
+            dailyDTO.temp.evening.toInt(),
+            dailyDTO.temp.night.toInt(),
+            dailyDTO.temp.min.toInt(),
+            dailyDTO.temp.max.toInt()
         ),
-        daily.pressure,
-        daily.humidity,
-        daily.windSpeed,
-        convertDegreeToDirection(daily.windDir),
-        daily.cloudiness,
-        daily.uvIndex,
-        (daily.precProb * 100).toInt(),
-        daily.weather.first().description,
-        daily.weather.first().icon
+        (dailyDTO.pressure * PRESSURE_INDEX).toInt(),
+        dailyDTO.humidity,
+        dailyDTO.windSpeed,
+        convertDegreeToDirection(dailyDTO.windDir),
+        dailyDTO.cloudiness,
+        dailyDTO.uvIndex,
+        (dailyDTO.precProb * 100).toInt(),
+        dailyDTO.weather.first().description,
+        dailyDTO.weather.first().icon
     )
 }
 
 // преобразование времени в строковый формат
 private fun getTimeFromDate(time: Long): String {
     val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    val dateTime = Date(time)
-    return timeFormatter.format(dateTime)
+    return timeFormatter.format(Date(time * MS_IN_SEC))
 }
 
 // преобразование даты в строковый формат
-private fun getDayMonthFromDate(date: Long): String {
-    val timeFormatter = SimpleDateFormat("dd.MM", Locale.getDefault())
-    val dateTime = Date(date)
-    return timeFormatter.format(dateTime)
+private fun getDayMonthFromDate(time: Long): String {
+    val timeFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
+    return timeFormatter.format(Date(time * MS_IN_SEC))
 }
 
 // получение дня недели из даты
-private fun getWeekDayFromDate(date: Long): String {
+private fun getWeekDayFromDate(time: Long): String {
     val timeFormatter = SimpleDateFormat("EEEE", Locale.getDefault())
-    val dateTime = Date(date)
-    return timeFormatter.format(dateTime)
+    return timeFormatter.format(Date(time * MS_IN_SEC))
 }
 
 // преобразование градусов в аббривиатуры направлений ветра
