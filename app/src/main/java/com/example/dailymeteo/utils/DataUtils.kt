@@ -4,20 +4,30 @@ import com.example.dailymeteo.domain.*
 import com.example.dailymeteo.repositiry.dto.geocoding.CityDTO
 import com.example.dailymeteo.repositiry.dto.weather.AllMeteoDataDTO
 import com.example.dailymeteo.repositiry.dto.weather.DailyDTO
+import com.example.dailymeteo.room.HistoryEntity
 import java.text.SimpleDateFormat
 import java.util.*
+
+fun convertEntityToCity(entity: HistoryEntity): City {
+    return City(entity.cityName, entity.country, entity.lat, entity.lon)
+}
+
+fun convertCityToEntity(city: City): HistoryEntity {
+    return HistoryEntity(0, Date().time, city.name, city.country, city.lat, city.lon)
+}
 
 fun convertDTOtoCity(locationsDTO: List<CityDTO>): City {
     return City(
         name = if (locationsDTO.first().localNames.containsKey("ru")) locationsDTO.first().localNames["ru"]!! else locationsDTO.first().name,
+        locationsDTO.first().country,
         locationsDTO.first().lat,
         locationsDTO.first().lon
     )
 }
 
-fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, cityName: String): Weather {
+fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, city: City): Weather {
     return Weather(
-        City(cityName, meteoDataDTO.lat, meteoDataDTO.lon),
+        City(city.name, city.country, meteoDataDTO.lat, meteoDataDTO.lon),
         Current(
             getTimeFromDate(meteoDataDTO.current.sunrise),
             getTimeFromDate(meteoDataDTO.current.sunset),
@@ -65,7 +75,7 @@ private fun convertDTOtoDailyWeather(dailyDTO: DailyDTO): Daily {
 // преобразование времени в строковый формат
 private fun getTimeFromDate(time: Long): String {
     val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return timeFormatter.format(Date(time * MS_IN_SEC))
+     return timeFormatter.format(Date(time * MS_IN_SEC))
 }
 
 // преобразование даты в строковый формат

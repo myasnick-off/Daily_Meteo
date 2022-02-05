@@ -43,6 +43,5 @@ class MainRecyclerAdapter: RecyclerView.Adapter<MainRecyclerAdapter.MainViewHold
                 itemDescriptionTextView.text = daily.description
             }
         }
-
     }
 }

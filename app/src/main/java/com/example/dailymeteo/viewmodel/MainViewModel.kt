@@ -26,7 +26,7 @@ class MainViewModel(
 
             override fun onResponse(call: Call<AllMeteoDataDTO>, response: Response<AllMeteoDataDTO>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val weather = convertDTOtoWeather(response.body()!!, city.name)
+                    val weather = convertDTOtoWeather(response.body()!!, city)
                     liveData.postValue(MainAppState.Success(weather))
                 } else {
                     liveData.postValue(MainAppState.Error(IllegalStateException()))
