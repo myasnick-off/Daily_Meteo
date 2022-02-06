@@ -9,17 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentMainBinding
-import com.example.dailymeteo.domain.City
-import com.example.dailymeteo.domain.Daily
-import com.example.dailymeteo.domain.Weather
-import com.example.dailymeteo.domain.getDefaultCity
+import com.example.dailymeteo.domain.*
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
-import com.example.dailymeteo.utils.ARG_CITY_NAME
-import com.example.dailymeteo.utils.ICON_BASE_URL
-import com.example.dailymeteo.utils.ICON_EXT
-import com.example.dailymeteo.utils.ICON_LARGE
+import com.example.dailymeteo.utils.*
 import com.example.dailymeteo.view.MainActivity
+import com.example.dailymeteo.view.details.DetailsFragment
 import com.example.dailymeteo.view.search.SearchFragment
 import com.example.dailymeteo.viewmodel.MainAppState
 import com.example.dailymeteo.viewmodel.MainViewModel
@@ -97,7 +92,7 @@ class MainFragment: Fragment() {
             MainAppState.Loading -> mainProgressBar.show()
             is MainAppState.Success -> {
                 mainProgressBar.hide()
-                showData(appState.weatherData)
+                showWeather(appState.weatherData)
             }
             is MainAppState.Error -> {
                 mainProgressBar.hide()
@@ -111,15 +106,25 @@ class MainFragment: Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showData(weather: Weather) = with(binding) {
+    private fun showWeather(weather: Weather) = with(binding) {
         cityTextView.text = weather.city.name
-        tempTextView.text = "${weather.current.temp} ${getString(R.string.temp_val)}"
-        feelsTempTextView.text = "${getString(R.string.feels_like)} ${weather.current.feelsLike} ${getString(R.string.temp_val)}"
-        humidityTextView.text = "${weather.current.humidity} ${getString(R.string.humidity_val)}"
-        pressureTextView.text = "${weather.current.pressure} ${getString(R.string.pressure_val)}"
-        windTextView.text = "${weather.current.windSpeed} ${getString(R.string.speed_val)}"
-        conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
+        current.tempTextView.text = "${weather.current.temp}"
+        current.feelsTempTextView.text = "${weather.current.feelsLike} ${getString(R.string.temp_unit)}"
+        current.conditionTextView.text = weather.current.description
+        current.conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
+        current.root.setOnClickListener { lunchDetails(weather.current, weather.city.name) }
         initRecyclerView(weather.daily)
+    }
+
+    private fun lunchDetails(current: Current, cityName: String) {
+        val args = Bundle().apply {
+            putParcelable(ARG_CURRENT, current)
+            putString(ARG_CITY_DETAILS, cityName)
+        }
+        parentFragmentManager.beginTransaction()
+            .add(R.id.main_container, DetailsFragment.newInstance(args), "")
+            .addToBackStack("DetailsFragment")
+            .commit()
     }
 
     private fun initRecyclerView(daily: List<Daily>) {

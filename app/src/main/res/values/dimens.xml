@@ -11,4 +11,12 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_64">64dp</dimen>
     <dimen name="corner_8">8dp</dimen>
+    <dimen name="text_24">24sp</dimen>
+    <dimen name="width_100">100dp</dimen>
+    <dimen name="height_100">100dp</dimen>
+    <dimen name="height_170">170dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="text_36">36sp</dimen>
+    <dimen name="width_110">110dp</dimen>
 </resources>

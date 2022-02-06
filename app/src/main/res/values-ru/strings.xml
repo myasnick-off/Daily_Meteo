@@ -2,15 +2,22 @@
 <resources>
     <string name="app_name">Daily Meteo</string>
     <string name="city_name">Название города</string>
-    <string name="humidity">Влажность</string>
+    <string name="humidity">Влажность:</string>
     <string name="wind">Ветер</string>
     <string name="feels_like">Ощущается как</string>
-    <string name="pressure">Давление</string>
-    <string name="pressure_val">мм. рт. ст.</string>
-    <string name="speed_val">м/с</string>
+    <string name="pressure">Давление:</string>
+    <string name="pressure_unit">мм. рт. ст.</string>
+    <string name="speed_unit">м/с</string>
     <string name="search">Поиск</string>
     <string name="enter_city_name">Введите назване города для поиска</string>
     <string name="week_day">день недели</string>
     <string name="date">дата</string>
     <string name="condition">Состояние</string>
+    <string name="uvi">УФ индекс:</string>
+    <string name="cloudiness">Облачность:</string>
+    <string name="dir">Направление</string>
+    <string name="speed">Скорость:</string>
+    <string name="gust">Порывы:</string>
+    <string name="visibility">Видимость:</string>
+    <string name="visibility_unit">м</string>
 </resources>

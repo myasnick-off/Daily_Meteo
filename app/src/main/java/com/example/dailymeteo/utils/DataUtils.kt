@@ -7,6 +7,7 @@ import com.example.dailymeteo.repositiry.dto.weather.DailyDTO
 import com.example.dailymeteo.room.HistoryEntity
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
 
 fun convertEntityToCity(entity: HistoryEntity): City {
     return City(entity.cityName, entity.country, entity.lat, entity.lon)
@@ -36,8 +37,11 @@ fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, city: City): Weather {
             (meteoDataDTO.current.pressure * PRESSURE_INDEX).toInt(),
             meteoDataDTO.current.humidity,
             meteoDataDTO.current.uvIndex,
+            meteoDataDTO.current.visibility,
             meteoDataDTO.current.cloudiness,
             meteoDataDTO.current.windSpeed,
+            meteoDataDTO.current.windGust,
+            meteoDataDTO.current.windDir + DIR_CORRECTION,
             convertDegreeToDirection(meteoDataDTO.current.windDir),
             meteoDataDTO.current.weather.first().description,
             meteoDataDTO.current.weather.first().icon
@@ -75,7 +79,7 @@ private fun convertDTOtoDailyWeather(dailyDTO: DailyDTO): Daily {
 // преобразование времени в строковый формат
 private fun getTimeFromDate(time: Long): String {
     val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-     return timeFormatter.format(Date(time * MS_IN_SEC))
+    return timeFormatter.format(Date(time * MS_IN_SEC))
 }
 
 // преобразование даты в строковый формат
