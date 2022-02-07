@@ -80,7 +80,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/condition_text_view"
-        android:layout_width="@dimen/width_100"
+        android:layout_width="@dimen/width_130"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_24"

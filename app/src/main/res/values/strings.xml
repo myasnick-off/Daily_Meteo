@@ -25,4 +25,8 @@
     <string name="gust">Gust:</string>
     <string name="visibility">Visibility:</string>
     <string name="visibility_unit">m</string>
+    <string name="location_access_required">Location access required</string>
+    <string name="to_display_weather_in_your_location_location_access_required">To display the weather in your current location, you need access to the location of the device!</string>
+    <string name="accept">Accept</string>
+    <string name="deny">Deny</string>
 </resources>

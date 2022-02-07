@@ -20,4 +20,8 @@
     <string name="gust">Порывы:</string>
     <string name="visibility">Видимость:</string>
     <string name="visibility_unit">м</string>
+    <string name="to_display_weather_in_your_location_location_access_required">Для отображения погоды по Вашему текущему метоположению требуется доступ к определению местоположения устройства!</string>
+    <string name="location_access_required">Необходим доступ к местоположению</string>
+    <string name="accept">Принять</string>
+    <string name="deny">Отклонить</string>
 </resources>
