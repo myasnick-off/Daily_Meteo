@@ -24,4 +24,7 @@
     <string name="location_access_required">Необходим доступ к местоположению</string>
     <string name="accept">Принять</string>
     <string name="deny">Отклонить</string>
+    <string name="error">Ошибка!</string>
+    <string name="cant_find_location">К сожалению, не удалось определить ваше местоположение. Пожалуйста, воспользуйтесь поиском!</string>
+    <string name="cancel">Отмена</string>
 </resources>

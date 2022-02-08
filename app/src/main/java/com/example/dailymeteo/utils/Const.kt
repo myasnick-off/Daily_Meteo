@@ -1,5 +1,9 @@
 package com.example.dailymeteo.utils
 
+const val KEY_PREF = "app_settings"
+const val KEY_LAT = "latitude"
+const val KEY_LON = "longitude"
+
 const val OPEN_WEATHER_API_URL = "https://api.openweathermap.org/"
 const val WEATHER_END_POINT = "data/2.5/onecall"
 const val GEOCODING_END_POINT = "geo/1.0/direct"

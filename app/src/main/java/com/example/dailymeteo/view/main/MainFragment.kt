@@ -80,9 +80,7 @@ class MainFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_search -> {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_container,SearchFragment.newInstance(), "")
-                    .commit()
+                runSearchScreen()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -129,11 +127,11 @@ class MainFragment: Fragment() {
         current.feelsTempTextView.text = "${weather.current.feelsLike} ${getString(R.string.temp_unit)}"
         current.conditionTextView.text = weather.current.description
         current.conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
-        current.root.setOnClickListener { lunchDetails(weather.current, weather.city.name) }
+        current.root.setOnClickListener { runDetailsScreen(weather.current, weather.city.name) }
         initRecyclerView(weather.daily)
     }
 
-    private fun lunchDetails(current: Current, cityName: String) {
+    private fun runDetailsScreen(current: Current, cityName: String) {
         val args = Bundle().apply {
             putParcelable(ARG_CURRENT, current)
             putString(ARG_CITY_DETAILS, cityName)
@@ -141,6 +139,12 @@ class MainFragment: Fragment() {
         parentFragmentManager.beginTransaction()
             .add(R.id.main_container, DetailsFragment.newInstance(args), "")
             .addToBackStack("DetailsFragment")
+            .commit()
+    }
+
+    private fun runSearchScreen() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_container, SearchFragment.newInstance(), "")
             .commit()
     }
 
@@ -159,16 +163,14 @@ class MainFragment: Fragment() {
                 val locationManager = ct.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 // получаем последнюю изывестную геолокацию устройства
                 val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                location?.let {
-                    // если геолокация получена, запускаем по ней поиск адреса
-                    getAddressAsync(ct, location)
-                }
+                // запускаем поиск адреса по геолокации
+                getAddress(ct, location)
                 // сразу же инициируем запрос актуальной геолокации у наиболее подходящего LocationProvider'a
                 val provider = locationManager.getBestProvider(Criteria(), true)
                 provider?.let {
                     locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE) { location ->
-                        // как только геолокация получена, запускаем по ней поиск адреса
-                        getAddressAsync(ct, location) }
+                        // как только геолокация получена, сохраняем координаты в настройках прложения
+                        saveLocation(location) }
                 }
             } else {
                 // если разрешения на использование геолокации нет, запрашиваем его у пользователя
@@ -178,30 +180,34 @@ class MainFragment: Fragment() {
     }
 
     // функция поиска адреса по данным геолокации
-    private fun getAddressAsync(context: Context, location: Location) {
-        val geocoder = Geocoder(context)
-        val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-        val city = City(
-            address.first().locality
-                ?: address.first().subLocality
-                ?: address.first().adminArea
-                ?: address.first().subAdminArea ?: "",
-            address.first().countryName ?: "",
-            location.latitude,
-            location.longitude
-        )
-        if (currentCity != null) {                  // если город уже найден по последним известным геоданным:
-            if (currentCity!!.name != city.name) {  // если название города по актуальным геоданным отличается от текущего:
-                currentCity = city                  // перезаписываем текущий город на актуральный
-                requestMeteoData(currentCity!!)     // запрашиеваем метеоданные для актуального города
+    private fun getAddress(context: Context, location: Location?) {
+        // если последняя локация не найдена загружаем координаты из настроек приложения
+        val lat = location?.latitude ?: loadLocation(KEY_LAT)
+        val lon = location?.longitude ?: loadLocation(KEY_LON)
+        // ищем адрес по полученным координатам
+        val address = Geocoder(context).getFromLocation(lat, lon, 1)
+        if (address != null && address.isNotEmpty()) {
+            val city = City(
+                address.first().locality
+                    ?: address.first().subLocality
+                    ?: address.first().adminArea
+                    ?: address.first().subAdminArea ?: "",
+                address.first().countryName ?: "",
+                lat,
+                lon
+            )
+            if (currentCity != null) {                  // если город уже найден по последним известным геоданным:
+                if (currentCity!!.name != city.name) {  // если название города по актуальным геоданным отличается от текущего:
+                    currentCity = city                  // перезаписываем текущий город на актуральный
+                    requestMeteoData(currentCity!!)     // запрашиеваем метеоданные для актуального города
+                }
+            } else {                                    // если текущий город еще не определен:
+                currentCity = city                      // сохраняем город, найденнный по последним известным геоданным
+                requestMeteoData(currentCity!!)         // запрашиеваем метеоданные для этого города
             }
-        } else {                                    // если текущий город еще не определен:
-            currentCity = city                      // сохраняем город, найденнный по последним известным геоданным
-            requestMeteoData(currentCity!!)         // запрашиеваем метеоданные для этого города
+        } else {
+            showErrorDialog()
         }
-
-
-
     }
 
     private fun checkPermission() {
@@ -219,10 +225,40 @@ class MainFragment: Fragment() {
     private fun showRationaleDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.location_access_required)
+            .setIcon(R.drawable.ic_baseline_warning_amber_24)
             .setMessage(R.string.to_display_weather_in_your_location_location_access_required)
             .setPositiveButton(R.string.accept) { _, _ -> requestPermission() }
             .setNegativeButton(R.string.deny) { dialog, _ -> dialog.dismiss() }
             .create().show()
+    }
+
+    private fun showErrorDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.error)
+            .setIcon(R.drawable.ic_baseline_error_outline_24)
+            .setMessage(R.string.cant_find_location)
+            .setPositiveButton(R.string.search) { _, _ ->  runSearchScreen()}
+            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .create().show()
+    }
+
+    private fun saveLocation(location: Location) {
+        context?.let {
+            val sharedPref = it.getSharedPreferences(KEY_PREF, Context.MODE_PRIVATE)
+            sharedPref.edit().apply {
+                putFloat(KEY_LAT, location.latitude.toFloat())
+                putFloat(KEY_LON, location.longitude.toFloat())
+            }
+        }
+    }
+
+    private fun loadLocation(key: String):Double {
+        var lat = 1000f
+        context?.let {
+            val sharedPref = it.getSharedPreferences(KEY_PREF, Context.MODE_PRIVATE)
+            lat = sharedPref.getFloat(key, 1000f)
+        }
+        return lat.toDouble()
     }
 
     companion object {

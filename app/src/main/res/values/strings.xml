@@ -29,4 +29,7 @@
     <string name="to_display_weather_in_your_location_location_access_required">To display the weather in your current location, you need access to the location of the device!</string>
     <string name="accept">Accept</string>
     <string name="deny">Deny</string>
+    <string name="error">Error!</string>
+    <string name="cant_find_location">Sorry, we can\'t determine your location. Please, use the search!</string>
+    <string name="cancel">Cancel</string>
 </resources>
