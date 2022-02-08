@@ -12,7 +12,6 @@ import com.example.dailymeteo.utils.convertDTOtoWeather
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Thread.sleep
 
 class MainViewModel(
     private val liveData: MutableLiveData<MainAppState> = MutableLiveData(),
@@ -27,12 +26,14 @@ class MainViewModel(
 
             override fun onResponse(call: Call<AllMeteoDataDTO>, response: Response<AllMeteoDataDTO>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val weather = convertDTOtoWeather(response.body()!!, city.name)
+                    val weather = convertDTOtoWeather(response.body()!!, city)
                     liveData.postValue(MainAppState.Success(weather))
+                } else {
+                    liveData.postValue(MainAppState.Error(IllegalStateException()))
                 }
             }
             override fun onFailure(call: Call<AllMeteoDataDTO>, t: Throwable) {
-                //TODO("Not yet implemented")
+                liveData.postValue(MainAppState.Error(IllegalStateException()))
             }
         })
     }

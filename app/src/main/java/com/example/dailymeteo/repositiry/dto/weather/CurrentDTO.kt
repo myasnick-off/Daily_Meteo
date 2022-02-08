@@ -14,10 +14,13 @@ data class CurrentDTO(
     val humidity: Int,
     @SerializedName("uvi")
     val uvIndex: Float,
+    val visibility: Int,
     @SerializedName("clouds")
     val cloudiness: Int,
     @SerializedName("wind_speed")
     val windSpeed: Double,
+    @SerializedName("wind_gust")
+    val windGust: Double,
     @SerializedName("wind_deg")
     val windDir: Int,
     val weather: List<WeatherDTO>

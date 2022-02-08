@@ -1,13 +1,35 @@
 <resources>
     <string name="app_name">Daily Meteo</string>
     <string name="city_name">City Name</string>
-    <string name="default_temp">+10 &#xb0;C</string>
-    <string name="humidity">Humidity</string>
+    <string name="default_temp" translatable="false">+10</string>
+    <string name="default_val" translatable="false">-10/-15</string>
+    <string name="humidity">Humidity:</string>
     <string name="wind">Wind</string>
     <string name="feels_like">Feels like</string>
-    <string name="pressure">Pressure</string>
-    <string name="temp_val">°C</string>
-    <string name="humidity_val">%</string>
-    <string name="pressure_val">mm. Hg</string>
-    <string name="speed_val">m/s</string>
+    <string name="pressure">Pressure:</string>
+    <string name="temp_unit" translatable="false">°C</string>
+    <string name="humidity_unit" translatable="false">%</string>
+    <string name="pressure_unit">mm. Hg</string>
+    <string name="speed_unit">m/s</string>
+    <string name="search">Search</string>
+    <string name="enter_city_name">Enter city name to search</string>
+    <string name="week_day">week day</string>
+    <string name="date">date</string>
+    <string name="condition">Condition</string>
+    <string name="alpha_50" translatable="false">0.5</string>
+    <string name="uvi">UV Index:</string>
+    <string name="cloudiness">Cloudiness:</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="dir">direction</string>
+    <string name="speed">Speed:</string>
+    <string name="gust">Gust:</string>
+    <string name="visibility">Visibility:</string>
+    <string name="visibility_unit">m</string>
+    <string name="location_access_required">Location access required</string>
+    <string name="to_display_weather_in_your_location_location_access_required">To display the weather in your current location, you need access to the location of the device!</string>
+    <string name="accept">Accept</string>
+    <string name="deny">Deny</string>
+    <string name="error">Error!</string>
+    <string name="cant_find_location">Sorry, we can\'t determine your location. Please, use the search!</string>
+    <string name="cancel">Cancel</string>
 </resources>

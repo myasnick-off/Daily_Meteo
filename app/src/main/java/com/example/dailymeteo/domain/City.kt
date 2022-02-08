@@ -1,7 +1,7 @@
 package com.example.dailymeteo.domain
 
-data class City(val name: String, val lat: Double, val lon: Double)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-
-//TODO удалить заглушку
-fun getDefaultCity() = City("Moscow", 55.7522, 37.6156)
+@Parcelize
+data class City(val name: String, val country: String, val lat: Double, val lon: Double): Parcelable

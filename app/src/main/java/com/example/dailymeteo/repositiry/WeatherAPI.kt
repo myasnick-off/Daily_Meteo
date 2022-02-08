@@ -1,7 +1,7 @@
 package com.example.dailymeteo.repositiry
 
 import com.example.dailymeteo.BuildConfig
-import com.example.dailymeteo.repositiry.dto.geocoding.LocationsDTO
+import com.example.dailymeteo.repositiry.dto.geocoding.CityDTO
 import com.example.dailymeteo.repositiry.dto.weather.AllMeteoDataDTO
 import com.example.dailymeteo.utils.GEOCODING_END_POINT
 import com.example.dailymeteo.utils.WEATHER_END_POINT
@@ -28,5 +28,5 @@ interface WeatherAPI {
         @Query("q") cityName: String,
         @Query("limit") resultsLimit: Int = 1,
         @Query("appid") apiKey: String = BuildConfig.API_KEY
-    ):Call<LocationsDTO>
+    ):Call<List<CityDTO>>
 }

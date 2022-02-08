@@ -7,4 +7,21 @@
     <dimen name="margin_24">24dp</dimen>
     <dimen name="text_64">64sp</dimen>
     <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_64">64dp</dimen>
+    <dimen name="corner_8">8dp</dimen>
+    <dimen name="text_24">24sp</dimen>
+    <dimen name="width_100">100dp</dimen>
+    <dimen name="height_100">100dp</dimen>
+    <dimen name="height_170">170dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="text_36">36sp</dimen>
+    <dimen name="width_110">110dp</dimen>
+    <dimen name="width_130">130dp</dimen>
+    <dimen name="text_32">32sp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_3">3dp</dimen>
+    <dimen name="text_28">28sp</dimen>
 </resources>
