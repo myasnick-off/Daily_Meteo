@@ -12,8 +12,8 @@ const val PRESSURE_INDEX = 0.750063755419211
 const val MS_IN_SEC = 1000
 const val DIR_CORRECTION = 180
 
-const val MIN_TIME = 100L
-const val MIN_DISTANCE = 1f
+const val MIN_TIME = 1000L
+const val MIN_DISTANCE = 1000f
 
 const val ARG_CITY_NAME = "ARG_CITY_TO_SEARCH"
 const val ARG_CURRENT = "ARG_CURRENT_WEATHER"
