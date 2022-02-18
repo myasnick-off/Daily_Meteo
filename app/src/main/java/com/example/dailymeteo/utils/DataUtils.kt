@@ -1,13 +1,12 @@
 package com.example.dailymeteo.utils
 
-import com.example.dailymeteo.domain.*
-import com.example.dailymeteo.repositiry.dto.geocoding.CityDTO
-import com.example.dailymeteo.repositiry.dto.weather.AllMeteoDataDTO
-import com.example.dailymeteo.repositiry.dto.weather.DailyDTO
+import com.example.dailymeteo.domain.model.*
+import com.example.dailymeteo.network.dto.geocoding.CityDTO
+import com.example.dailymeteo.network.dto.weather.AllMeteoDataDTO
+import com.example.dailymeteo.network.dto.weather.DailyDTO
 import com.example.dailymeteo.room.HistoryEntity
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.pow
 
 fun convertEntityToCity(entity: HistoryEntity): City {
     return City(entity.cityName, entity.country, entity.lat, entity.lon)
