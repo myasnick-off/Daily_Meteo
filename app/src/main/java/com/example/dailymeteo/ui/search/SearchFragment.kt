@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentSearchBinding
 import com.example.dailymeteo.domain.model.City
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
+import com.example.dailymeteo.ui.BackPressedMonitor
 import com.example.dailymeteo.ui.main.MainFragment
 import com.example.dailymeteo.utils.ARG_CITY_NAME
 import com.example.dailymeteo.utils.SEARCH_FAILURE
@@ -18,7 +20,7 @@ import com.example.dailymeteo.utils.SEARCH_NO_RESULTS
 import com.example.dailymeteo.utils.SEARCH_UNSUCCESSFUL
 import com.google.android.material.snackbar.Snackbar
 
-class SearchFragment: Fragment() {
+class SearchFragment: Fragment(), BackPressedMonitor {
 
     private val searchViewModel by lazy {
         ViewModelProvider(this).get(SearchViewModel::class.java)
@@ -128,6 +130,13 @@ class SearchFragment: Fragment() {
             }
             else -> {}
         }
+    }
+
+    // обработка события по нажатию кнопки "Назад" во фрагменте
+    override fun onBackPressed(): Boolean {
+        // опустошаем backStack и переходим на последний в бэкстеке фрагмент (MainFragment)
+        parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        return true
     }
 
     // интерфейс для обработки кликов на элементы списка

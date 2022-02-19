@@ -15,4 +15,19 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+    // обработка события по нажатию системной кнопки "Назад"
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.container)
+        if (fragment is BackPressedMonitor) {
+            // проверяем если нажатие кнопки "Назад" во фрагменте,
+            // унаследованном от BackPressedMonitor вернуло false,
+            // то отдаем обработку системной кнопки "Назад" активити
+            if (!fragment.onBackPressed()) {
+                super.onBackPressed()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

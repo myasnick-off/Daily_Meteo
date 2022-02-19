@@ -150,6 +150,7 @@ class MainFragment: Fragment() {
     private fun runSearchScreen() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_container, SearchFragment.newInstance(), "")
+            .addToBackStack("SearchFragment")
             .commit()
     }
 
