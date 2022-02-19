@@ -29,7 +29,7 @@ class SearchRecyclerAdapter: RecyclerView.Adapter<SearchRecyclerAdapter.CityView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val binding =
             FragmentSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CityViewHolder(binding.root)
+        return CityViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
@@ -38,14 +38,10 @@ class SearchRecyclerAdapter: RecyclerView.Adapter<SearchRecyclerAdapter.CityView
 
     override fun getItemCount() = cities.size
 
-    inner class CityViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        fun bind(city: City) {
-            FragmentSearchItemBinding.bind(itemView).apply {
+    inner class CityViewHolder(private val binding: FragmentSearchItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(city: City) = with(binding) {
                 itemCityName.text = city.name
-                itemView.setOnClickListener {
-                    itemListener.onItemClicked(layoutPosition)
-                }
-            }
+                root.setOnClickListener { itemListener.onItemClicked(layoutPosition) }
         }
 
     }

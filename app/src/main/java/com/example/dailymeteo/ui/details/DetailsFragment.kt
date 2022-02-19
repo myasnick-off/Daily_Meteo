@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import coil.load
 import com.example.dailymeteo.R
@@ -23,7 +24,7 @@ class DetailsFragment: Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             current = it.getParcelable(ARG_CURRENT)
-            cityName = it.getString(ARG_CITY_DETAILS)
+            cityName = it.getString(ARG_CITY)
         }
     }
 
@@ -71,9 +72,9 @@ class DetailsFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance(args: Bundle): DetailsFragment {
+        fun newInstance(current: Current, cityName: String): DetailsFragment {
             return DetailsFragment().apply {
-                this.arguments = args
+                this.arguments = bundleOf(ARG_CURRENT to current, ARG_CITY to cityName)
             }
         }
     }

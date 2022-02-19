@@ -25,6 +25,7 @@ import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
 import com.example.dailymeteo.utils.*
 import com.example.dailymeteo.ui.MainActivity
+import com.example.dailymeteo.ui.daily.DailyFragment
 import com.example.dailymeteo.ui.details.DetailsFragment
 import com.example.dailymeteo.ui.search.SearchFragment
 import com.google.android.material.snackbar.Snackbar
@@ -97,7 +98,6 @@ class MainFragment: Fragment() {
         val mainActivity = activity as MainActivity
         mainActivity.setSupportActionBar(binding.mainToolbar)
         setHasOptionsMenu(true)
-        // TODO bottomSheetBehavior
     }
 
     private fun renderData(appState: MainAppState) = with(binding) {
@@ -134,13 +134,16 @@ class MainFragment: Fragment() {
     }
 
     private fun runDetailsScreen(current: Current, cityName: String) {
-        val args = Bundle().apply {
-            putParcelable(ARG_CURRENT, current)
-            putString(ARG_CITY_DETAILS, cityName)
-        }
         parentFragmentManager.beginTransaction()
-            .add(R.id.main_container, DetailsFragment.newInstance(args), "")
+            .add(R.id.main_container, DetailsFragment.newInstance(current, cityName), "")
             .addToBackStack("DetailsFragment")
+            .commit()
+    }
+
+    private fun runDailyScreen(daily: List<Daily>) {
+        parentFragmentManager.beginTransaction()
+            .add(R.id.main_container, DailyFragment.newInstance(daily), "")
+            .addToBackStack("DailyFragment")
             .commit()
     }
 
@@ -153,6 +156,9 @@ class MainFragment: Fragment() {
     private fun initRecyclerView(daily: List<Daily>) {
         val adapter = MainRecyclerAdapter().apply {
             setItems(daily)
+            setListener(object : ItemClickListener {
+                override fun onItemClicked() { runDailyScreen(daily) }
+            })
         }
         binding.mainRecyclerView.adapter = adapter
     }
@@ -261,6 +267,10 @@ class MainFragment: Fragment() {
             lat = sharedPref.getFloat(key, 1000f)
         }
         return lat.toDouble()
+    }
+
+    interface ItemClickListener {
+        fun onItemClicked()
     }
 
     companion object {

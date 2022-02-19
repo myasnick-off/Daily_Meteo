@@ -51,6 +51,7 @@ fun convertDTOtoWeather(meteoDataDTO: AllMeteoDataDTO, city: City): Weather {
 
 private fun convertDTOtoDailyWeather(dailyDTO: DailyDTO): Daily {
     return Daily(
+        dailyDTO.time,
         getDayMonthFromDate(dailyDTO.time),
         getWeekDayFromDate(dailyDTO.time),
         getTimeFromDate(dailyDTO.sunrise),
@@ -66,6 +67,7 @@ private fun convertDTOtoDailyWeather(dailyDTO: DailyDTO): Daily {
         (dailyDTO.pressure * PRESSURE_INDEX).toInt(),
         dailyDTO.humidity,
         dailyDTO.windSpeed,
+        dailyDTO.windDir,
         convertDegreeToDirection(dailyDTO.windDir),
         dailyDTO.cloudiness,
         dailyDTO.uvIndex,

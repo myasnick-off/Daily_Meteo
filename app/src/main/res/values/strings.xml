@@ -32,4 +32,10 @@
     <string name="error">Error!</string>
     <string name="cant_find_location">Sorry, we can\'t determine your location. Please, use the search!</string>
     <string name="cancel">Cancel</string>
+    <string name="daytime">daytime</string>
+    <string name="prec_prob">Precipitation probability:</string>
+    <string name="morning">morning</string>
+    <string name="day">day</string>
+    <string name="evening">evening</string>
+    <string name="night">night</string>
 </resources>

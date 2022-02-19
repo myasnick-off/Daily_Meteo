@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/width_65"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_daytime_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4"
+        android:layout_gravity="center_horizontal"
+        android:alpha="@string/alpha_50"
+        tools:text="@string/daytime" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_temp_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4"
+        android:layout_gravity="center_horizontal"
+        tools:text="@string/default_temp" />
+
+</LinearLayout>
