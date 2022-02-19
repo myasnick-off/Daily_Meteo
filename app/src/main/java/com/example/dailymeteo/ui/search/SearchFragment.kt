@@ -1,9 +1,7 @@
 package com.example.dailymeteo.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +11,7 @@ import com.example.dailymeteo.domain.model.City
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
 import com.example.dailymeteo.ui.BackPressedMonitor
+import com.example.dailymeteo.ui.MainActivity
 import com.example.dailymeteo.ui.main.MainFragment
 import com.example.dailymeteo.utils.ARG_CITY_NAME
 import com.example.dailymeteo.utils.SEARCH_FAILURE
@@ -30,7 +29,9 @@ class SearchFragment: Fragment(), BackPressedMonitor {
     }
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private val adapter = SearchRecyclerAdapter()
+
+    private val adapter by lazy { SearchRecyclerAdapter() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +44,9 @@ class SearchFragment: Fragment(), BackPressedMonitor {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
+        appbarInit()
+        listInit()
+
         searchViewModel.getLiveData().observe(viewLifecycleOwner, { renderSearchData(it) })
         historyViewModel.getLiveData().observe(viewLifecycleOwner, {renderHistoryData(it)})
         requestHistory()
@@ -53,9 +57,41 @@ class SearchFragment: Fragment(), BackPressedMonitor {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_history, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_clear -> {
+                clearHistory()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun appbarInit() {
+        val mainActivity = activity as MainActivity
+        mainActivity.setSupportActionBar(binding.searchToolbar)
+        setHasOptionsMenu(true)
+    }
+
+    private fun listInit() {
+        adapter.setListener(object : ItemClickListener {
+            override fun onItemClicked(pos: Int) {
+                val city = adapter.getItems()[pos]
+                saveCityToHistory(city)     // перезаписываем в истории для обновления даты запроса
+                showWeather(city)
+            }
+        })
+        binding.searchRecyclerView.adapter = adapter
     }
 
     private fun renderHistoryData(appState: HistoryAppState) = with(binding) {
@@ -87,16 +123,13 @@ class SearchFragment: Fragment(), BackPressedMonitor {
         historyViewModel.getHistoryFromLocalSource()
     }
 
+    private fun clearHistory() {
+        historyViewModel.removeAllHistory()
+    }
+
     private fun showCities(history: List<City>) {
         adapter.submitList(history)
-        adapter.setListener(object : ItemClickListener {
-            override fun onItemClicked(pos: Int) {
-                val city = adapter.getItems()[pos]
-                saveCityToHistory(city)     // перезаписываем в истории для обновления даты запроса
-                showWeather(city)
-            }
-        })
-        binding.searchRecyclerView.adapter = adapter
+
     }
 
     private fun requestCity(cityName: String) {

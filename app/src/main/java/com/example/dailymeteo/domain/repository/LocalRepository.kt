@@ -6,5 +6,4 @@ interface LocalRepository {
     fun getAllHistory(): List<City>
     fun clearHistory()
     fun saveEntity(city: City)
-    fun removeEntity(city: City)
 }

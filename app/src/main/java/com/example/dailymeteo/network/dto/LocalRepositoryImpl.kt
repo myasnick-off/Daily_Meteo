@@ -31,8 +31,4 @@ class LocalRepositoryImpl(private val localDataSource: HistoryDAO) : LocalReposi
         }
 
     }
-
-    override fun removeEntity(city: City) {
-        localDataSource.delete(convertCityToEntity(city))
-    }
 }

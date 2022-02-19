@@ -29,4 +29,12 @@ class HistoryViewModel(
             localRepository.saveEntity(city)
         }.start()
     }
+
+    fun removeAllHistory() {
+        liveData.value = HistoryAppState.Loading
+        Thread {
+            localRepository.clearHistory()
+            liveData.postValue(HistoryAppState.Success(localRepository.getAllHistory()))
+        }.start()
+    }
 }
