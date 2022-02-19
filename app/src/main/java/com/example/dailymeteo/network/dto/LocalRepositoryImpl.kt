@@ -10,7 +10,9 @@ import java.util.*
 class LocalRepositoryImpl(private val localDataSource: HistoryDAO) : LocalRepository {
 
     override fun getAllHistory(): List<City> {
-        return localDataSource.getAll().map { convertEntityToCity(it) }
+        return localDataSource.getAll()
+            .sortedByDescending { it.date }
+            .map { convertEntityToCity(it) }
     }
 
     override fun clearHistory() {

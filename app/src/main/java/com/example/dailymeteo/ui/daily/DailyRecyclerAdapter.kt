@@ -1,8 +1,8 @@
 package com.example.dailymeteo.ui.daily
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentDailyItemBinding
-import com.example.dailymeteo.databinding.FragmentMainRecyclerItemBinding
 import com.example.dailymeteo.domain.model.Daily
 import com.example.dailymeteo.utils.ICON_BASE_URL
 import com.example.dailymeteo.utils.ICON_EXT
 import com.example.dailymeteo.utils.ICON_LARGE
 
-class DailyRecyclerAdapter: ListAdapter<Daily, DailyRecyclerAdapter.MainViewHolder>(GithubRepoItemCallBack) {
+class DailyRecyclerAdapter: ListAdapter<Daily, DailyRecyclerAdapter.MainViewHolder>(DailyItemCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
@@ -31,9 +30,9 @@ class DailyRecyclerAdapter: ListAdapter<Daily, DailyRecyclerAdapter.MainViewHold
     inner class MainViewHolder(private val binding: FragmentDailyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val context = itemView.context
         @SuppressLint("SetTextI18n")
         fun bind(daily: Daily) = with(binding) {
+            val context: Context = itemView.context
             itemWeekDayTextView.text = daily.weekDay
             itemDateTextView.text = daily.dayMonth
             itemConditionImageView.load("$ICON_BASE_URL${daily.icon}$ICON_LARGE$ICON_EXT")
@@ -62,7 +61,7 @@ class DailyRecyclerAdapter: ListAdapter<Daily, DailyRecyclerAdapter.MainViewHold
     }
 }
 
-object GithubRepoItemCallBack : DiffUtil.ItemCallback<Daily>() {
+object DailyItemCallBack : DiffUtil.ItemCallback<Daily>() {
 
     override fun areItemsTheSame(oldItem: Daily, newItem: Daily): Boolean {
         return oldItem.time == newItem.time

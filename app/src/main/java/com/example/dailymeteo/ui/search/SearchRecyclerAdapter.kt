@@ -1,26 +1,18 @@
 package com.example.dailymeteo.ui.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailymeteo.databinding.FragmentSearchItemBinding
 import com.example.dailymeteo.domain.model.City
 
-class SearchRecyclerAdapter: RecyclerView.Adapter<SearchRecyclerAdapter.CityViewHolder>() {
+class SearchRecyclerAdapter: ListAdapter<City, SearchRecyclerAdapter.CityViewHolder>(CityItemCallBack) {
 
-    private var cities: MutableList<City> = mutableListOf()
     private lateinit var itemListener: SearchFragment.ItemClickListener
 
-    fun setItems(data: List<City>) {
-        cities.apply {
-            clear()
-            addAll(data)
-        }
-        notifyDataSetChanged()
-    }
-
-    fun getItems() = cities
+    fun getItems(): List<City> = currentList
 
     fun setListener(listener: SearchFragment.ItemClickListener) {
         itemListener = listener
@@ -33,16 +25,24 @@ class SearchRecyclerAdapter: RecyclerView.Adapter<SearchRecyclerAdapter.CityView
     }
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
-        holder.bind(cities[position])
+        holder.bind(currentList[position])
     }
-
-    override fun getItemCount() = cities.size
 
     inner class CityViewHolder(private val binding: FragmentSearchItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(city: City) = with(binding) {
                 itemCityName.text = city.name
                 root.setOnClickListener { itemListener.onItemClicked(layoutPosition) }
         }
+    }
+}
 
+object CityItemCallBack : DiffUtil.ItemCallback<City>() {
+
+    override fun areItemsTheSame(oldItem: City, newItem: City): Boolean {
+        return oldItem.name == newItem.name
+    }
+
+    override fun areContentsTheSame(oldItem: City, newItem: City): Boolean {
+        return oldItem == newItem
     }
 }

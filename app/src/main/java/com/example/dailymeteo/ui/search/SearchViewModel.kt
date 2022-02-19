@@ -3,9 +3,9 @@ package com.example.dailymeteo.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dailymeteo.network.RemoteDataSource
 import com.example.dailymeteo.domain.repository.Repository
 import com.example.dailymeteo.domain.repository.RepositoryImpl
+import com.example.dailymeteo.network.RemoteDataSource
 import com.example.dailymeteo.network.dto.geocoding.CityDTO
 import com.example.dailymeteo.utils.SEARCH_FAILURE
 import com.example.dailymeteo.utils.SEARCH_NO_RESULTS

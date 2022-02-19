@@ -23,11 +23,11 @@ import com.example.dailymeteo.domain.model.Daily
 import com.example.dailymeteo.domain.model.Weather
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
-import com.example.dailymeteo.utils.*
 import com.example.dailymeteo.ui.MainActivity
 import com.example.dailymeteo.ui.daily.DailyFragment
 import com.example.dailymeteo.ui.details.DetailsFragment
 import com.example.dailymeteo.ui.search.SearchFragment
+import com.example.dailymeteo.utils.*
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment: Fragment() {
@@ -155,7 +155,7 @@ class MainFragment: Fragment() {
 
     private fun initRecyclerView(daily: List<Daily>) {
         val adapter = MainRecyclerAdapter().apply {
-            setItems(daily)
+            submitList(daily)
             setListener(object : ItemClickListener {
                 override fun onItemClicked() { runDailyScreen(daily) }
             })

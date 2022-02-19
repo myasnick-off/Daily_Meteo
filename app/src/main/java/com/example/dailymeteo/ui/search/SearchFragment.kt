@@ -11,11 +11,11 @@ import com.example.dailymeteo.databinding.FragmentSearchBinding
 import com.example.dailymeteo.domain.model.City
 import com.example.dailymeteo.hide
 import com.example.dailymeteo.show
+import com.example.dailymeteo.ui.main.MainFragment
 import com.example.dailymeteo.utils.ARG_CITY_NAME
 import com.example.dailymeteo.utils.SEARCH_FAILURE
 import com.example.dailymeteo.utils.SEARCH_NO_RESULTS
 import com.example.dailymeteo.utils.SEARCH_UNSUCCESSFUL
-import com.example.dailymeteo.ui.main.MainFragment
 import com.google.android.material.snackbar.Snackbar
 
 class SearchFragment: Fragment() {
@@ -86,7 +86,7 @@ class SearchFragment: Fragment() {
     }
 
     private fun showCities(history: List<City>) {
-        adapter.setItems(history)
+        adapter.submitList(history)
         adapter.setListener(object : ItemClickListener {
             override fun onItemClicked(pos: Int) {
                 val city = adapter.getItems()[pos]

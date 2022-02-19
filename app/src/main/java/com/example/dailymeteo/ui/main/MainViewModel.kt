@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dailymeteo.domain.model.City
-import com.example.dailymeteo.network.RemoteDataSource
 import com.example.dailymeteo.domain.repository.Repository
 import com.example.dailymeteo.domain.repository.RepositoryImpl
+import com.example.dailymeteo.network.RemoteDataSource
 import com.example.dailymeteo.network.dto.weather.AllMeteoDataDTO
 import com.example.dailymeteo.utils.convertDTOtoWeather
 import retrofit2.Call

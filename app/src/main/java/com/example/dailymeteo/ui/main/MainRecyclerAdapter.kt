@@ -2,28 +2,20 @@ package com.example.dailymeteo.ui.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.dailymeteo.databinding.FragmentMainRecyclerItemBinding
 import com.example.dailymeteo.domain.model.Daily
-import com.example.dailymeteo.ui.search.SearchFragment
 import com.example.dailymeteo.utils.ICON_BASE_URL
 import com.example.dailymeteo.utils.ICON_EXT
 import com.example.dailymeteo.utils.ICON_LARGE
 
-class MainRecyclerAdapter :
-    RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
+class MainRecyclerAdapter : ListAdapter<Daily, MainRecyclerAdapter.MainViewHolder>(DailyItemCallBack) {
 
-    private var dailyWeather: MutableList<Daily> = mutableListOf()
     private lateinit var itemListener: MainFragment.ItemClickListener
-
-    fun setItems(items: List<Daily>) {
-        dailyWeather.clear()
-        dailyWeather.addAll(items)
-        notifyDataSetChanged()
-    }
 
     fun setListener(listener: MainFragment.ItemClickListener) {
         itemListener = listener
@@ -36,10 +28,8 @@ class MainRecyclerAdapter :
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(dailyWeather[position])
+        holder.bind(currentList[position])
     }
-
-    override fun getItemCount() = dailyWeather.size
 
     inner class MainViewHolder(private val binding: FragmentMainRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -52,5 +42,16 @@ class MainRecyclerAdapter :
             itemDescriptionTextView.text = daily.description
             root.setOnClickListener { itemListener.onItemClicked() }
         }
+    }
+}
+
+object DailyItemCallBack : DiffUtil.ItemCallback<Daily>() {
+
+    override fun areItemsTheSame(oldItem: Daily, newItem: Daily): Boolean {
+        return oldItem.time == newItem.time
+    }
+
+    override fun areContentsTheSame(oldItem: Daily, newItem: Daily): Boolean {
+        return oldItem == newItem
     }
 }

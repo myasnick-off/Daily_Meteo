@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.example.dailymeteo.R
 import com.example.dailymeteo.databinding.FragmentDailyBinding
 import com.example.dailymeteo.domain.model.Daily
-import com.example.dailymeteo.utils.*
+import com.example.dailymeteo.utils.ARG_DAILY
 
 class DailyFragment: Fragment() {
 
