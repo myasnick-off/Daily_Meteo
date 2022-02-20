@@ -5,7 +5,10 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.*
+import android.location.Criteria
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -192,7 +195,8 @@ class MainFragment: Fragment() {
                 provider?.let {
                     locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE) { location ->
                         // как только геолокация получена, сохраняем координаты в настройках прложения
-                        saveLocation(location) }
+                        saveLocation(location)
+                    }
                 }
             } else {
                 // если разрешения на использование геолокации нет, запрашиваем его у пользователя
@@ -213,8 +217,8 @@ class MainFragment: Fragment() {
                 address.first().locality
                     ?: address.first().subLocality
                     ?: address.first().adminArea
-                    ?: address.first().subAdminArea ?: "",
-                address.first().countryName ?: "",
+                    ?: address.first().subAdminArea.orEmpty(),
+                address.first().countryName.orEmpty(),
                 lat,
                 lon
             )
@@ -228,6 +232,8 @@ class MainFragment: Fragment() {
                 requestMeteoData(currentCity!!)         // запрашиеваем метеоданные для этого города
             }
         } else {
+            binding.mainProgressBar.hide()
+            binding.mainLayout.hide()
             showErrorDialog()
         }
     }
@@ -259,7 +265,10 @@ class MainFragment: Fragment() {
             .setTitle(R.string.error)
             .setIcon(R.drawable.ic_baseline_error_outline_24)
             .setMessage(R.string.cant_find_location)
-            .setPositiveButton(R.string.search) { _, _ ->  runSearchScreen()}
+            .setPositiveButton(R.string.search) { dialog, _ ->
+                dialog.dismiss()
+                runSearchScreen()
+            }
             .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
             .create().show()
     }
@@ -270,15 +279,16 @@ class MainFragment: Fragment() {
             sharedPref.edit().apply {
                 putFloat(KEY_LAT, location.latitude.toFloat())
                 putFloat(KEY_LON, location.longitude.toFloat())
+                apply()
             }
         }
     }
 
-    private fun loadLocation(key: String):Double {
-        var lat = 1000f
+    private fun loadLocation(key: String): Double {
+        var lat = 1.0f
         context?.let {
             val sharedPref = it.getSharedPreferences(KEY_PREF, Context.MODE_PRIVATE)
-            lat = sharedPref.getFloat(key, 1000f)
+            lat = sharedPref.getFloat(key, 1f)
         }
         return lat.toDouble()
     }
