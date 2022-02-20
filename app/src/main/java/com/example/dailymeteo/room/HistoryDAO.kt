@@ -1,6 +1,9 @@
 package com.example.dailymeteo.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface HistoryDAO {
@@ -13,9 +16,6 @@ interface HistoryDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: HistoryEntity)
-
-    @Delete
-    fun delete(entity: HistoryEntity)
 
     @Query("DELETE FROM HistoryEntity")
     fun deleteAll()

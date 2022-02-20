@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/temp_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_64"
+        app:layout_constraintEnd_toStartOf="@+id/temp_unit_text_view"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/default_temp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/temp_unit_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="@string/alpha_60"
+        android:text="@string/temp_unit"
+        android:textSize="@dimen/text_64"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/temp_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/feels_like_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:alpha="@string/alpha_60"
+        android:text="@string/feels_like"
+        app:layout_constraintEnd_toStartOf="@+id/feels_temp_text_view"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temp_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/feels_temp_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/feels_like_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/temp_text_view"
+        tools:text="@string/default_temp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/condition_image_view"
+        android:layout_width="@dimen/width_100"
+        android:layout_height="@dimen/height_100"
+        app:layout_constraintEnd_toStartOf="@id/condition_text_view"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/temp_unit_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_baseline_wb_sunny_96" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/condition_text_view"
+        android:layout_width="@dimen/width_130"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_28"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/condition_image_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/condition" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

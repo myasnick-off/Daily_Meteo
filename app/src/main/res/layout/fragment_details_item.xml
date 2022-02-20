@@ -17,7 +17,7 @@
             android:id="@+id/pressure_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="@string/alpha_50"
+            android:alpha="@string/alpha_60"
             android:text="@string/pressure"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:alpha="@string/alpha_50"
+            android:alpha="@string/alpha_60"
             android:text="@string/humidity"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pressure_text_view" />
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:alpha="@string/alpha_50"
+            android:alpha="@string/alpha_60"
             android:text="@string/uvi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/humidity_text_view" />
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:alpha="@string/alpha_50"
+            android:alpha="@string/alpha_60"
             android:text="@string/cloudiness"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/uvi_text_view" />
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:alpha="@string/alpha_50"
+            android:alpha="@string/alpha_60"
             android:text="@string/visibility"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cloudiness_text_view" />

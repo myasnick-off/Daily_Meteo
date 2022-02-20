@@ -16,7 +16,7 @@
     <string name="week_day">week day</string>
     <string name="date">date</string>
     <string name="condition">Condition</string>
-    <string name="alpha_50" translatable="false">0.5</string>
+    <string name="alpha_60" translatable="false">0.6</string>
     <string name="uvi">UV Index:</string>
     <string name="cloudiness">Cloudiness:</string>
     <string name="percent" translatable="false">%</string>
@@ -32,4 +32,11 @@
     <string name="error">Error!</string>
     <string name="cant_find_location">Sorry, we can\'t determine your location. Please, use the search!</string>
     <string name="cancel">Cancel</string>
+    <string name="daytime">daytime</string>
+    <string name="prec_prob">Precipitation probability:</string>
+    <string name="morning">morning</string>
+    <string name="day">day</string>
+    <string name="evening">evening</string>
+    <string name="night">night</string>
+    <string name="clear_history">Clear history</string>
 </resources>

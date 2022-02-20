@@ -27,4 +27,11 @@
     <string name="error">Ошибка!</string>
     <string name="cant_find_location">К сожалению, не удалось определить ваше местоположение. Пожалуйста, воспользуйтесь поиском!</string>
     <string name="cancel">Отмена</string>
+    <string name="daytime">время суток</string>
+    <string name="prec_prob">Вероятность осадков:</string>
+    <string name="morning">утро</string>
+    <string name="day">день</string>
+    <string name="evening">вечер</string>
+    <string name="night">ночь</string>
+    <string name="clear_history">Очистить историю</string>
 </resources>
