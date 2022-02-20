@@ -54,8 +54,8 @@
         android:layout_height="@dimen/height_100"
         app:layout_constraintEnd_toStartOf="@id/condition_text_view"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feels_like_text_view"
+        app:layout_constraintStart_toEndOf="@+id/temp_unit_text_view"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_baseline_wb_sunny_96" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -66,7 +66,7 @@
         android:textSize="@dimen/text_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/condition_image_view"
-        app:layout_constraintTop_toBottomOf="@id/feels_temp_text_view"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/condition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
