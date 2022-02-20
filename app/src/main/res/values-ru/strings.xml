@@ -33,4 +33,5 @@
     <string name="day">день</string>
     <string name="evening">вечер</string>
     <string name="night">ночь</string>
+    <string name="clear_history">Очистить историю</string>
 </resources>

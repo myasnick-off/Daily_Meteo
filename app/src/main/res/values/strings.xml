@@ -16,7 +16,7 @@
     <string name="week_day">week day</string>
     <string name="date">date</string>
     <string name="condition">Condition</string>
-    <string name="alpha_50" translatable="false">0.5</string>
+    <string name="alpha_60" translatable="false">0.6</string>
     <string name="uvi">UV Index:</string>
     <string name="cloudiness">Cloudiness:</string>
     <string name="percent" translatable="false">%</string>

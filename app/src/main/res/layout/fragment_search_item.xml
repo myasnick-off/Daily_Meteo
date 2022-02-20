@@ -18,5 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="@dimen/margin_8"
-        android:background="?colorPrimary" />
+        android:alpha="@string/alpha_60"
+        android:background="?colorOnPrimary" />
 </LinearLayout>

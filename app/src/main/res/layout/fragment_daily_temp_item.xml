@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_4"
         android:layout_gravity="center_horizontal"
-        android:alpha="@string/alpha_50"
+        android:alpha="@string/alpha_60"
         tools:text="@string/daytime" />
 
     <androidx.appcompat.widget.AppCompatTextView
