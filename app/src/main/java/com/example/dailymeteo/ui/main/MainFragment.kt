@@ -135,6 +135,12 @@ class MainFragment: Fragment() {
 
     private fun runDetailsScreen(current: Current, cityName: String) {
         parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_up,
+                R.anim.slide_out_up,
+                R.anim.slide_in_up,
+                R.anim.slide_out_up
+            )
             .add(R.id.main_container, DetailsFragment.newInstance(current, cityName), "")
             .addToBackStack("DetailsFragment")
             .commit()
@@ -142,6 +148,12 @@ class MainFragment: Fragment() {
 
     private fun runDailyScreen(daily: List<Daily>) {
         parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_down,
+                R.anim.slide_out_down,
+                R.anim.slide_in_down,
+                R.anim.slide_out_down
+            )
             .add(R.id.main_container, DailyFragment.newInstance(daily), "")
             .addToBackStack("DailyFragment")
             .commit()
@@ -149,6 +161,7 @@ class MainFragment: Fragment() {
 
     private fun runSearchScreen() {
         parentFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             .replace(R.id.main_container, SearchFragment.newInstance(), "")
             .addToBackStack("SearchFragment")
             .commit()

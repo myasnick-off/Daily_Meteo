@@ -145,6 +145,7 @@ class SearchFragment: Fragment(), BackPressedMonitor {
             putParcelable(ARG_CITY_NAME, city)
         }
         parentFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
             .replace(R.id.main_container, MainFragment.newInstance(args), "")
             .commit()
     }
