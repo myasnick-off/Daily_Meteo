@@ -33,7 +33,7 @@ import com.example.dailymeteo.ui.search.SearchFragment
 import com.example.dailymeteo.utils.*
 import com.google.android.material.snackbar.Snackbar
 
-class MainFragment: Fragment() {
+class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -42,10 +42,11 @@ class MainFragment: Fragment() {
     private val binding get() = _binding!!
     private var currentCity: City? = null
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
-        if(result) getMyLocation()
-        else showRationaleDialog()
-    }
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+            if (result) getMyLocation()
+            else showRationaleDialog()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +85,7 @@ class MainFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_search -> {
                 runSearchScreen()
             }
@@ -104,7 +105,7 @@ class MainFragment: Fragment() {
     }
 
     private fun renderData(appState: MainAppState) = with(binding) {
-        when(appState){
+        when (appState) {
             MainAppState.Loading -> {
                 mainProgressBar.show()
                 mainLayout.hide()
@@ -121,7 +122,7 @@ class MainFragment: Fragment() {
         }
     }
 
-    private fun requestMeteoData(city: City){
+    private fun requestMeteoData(city: City) {
         viewModel.getWeatherFromRemoteSource(city)
     }
 
@@ -129,7 +130,8 @@ class MainFragment: Fragment() {
     private fun showWeather(weather: Weather) = with(binding) {
         cityTextView.text = weather.city.name
         current.tempTextView.text = "${weather.current.temp}"
-        current.feelsTempTextView.text = "${weather.current.feelsLike} ${getString(R.string.temp_unit)}"
+        current.feelsTempTextView.text =
+            "${weather.current.feelsLike} ${getString(R.string.temp_unit)}"
         current.conditionTextView.text = weather.current.description
         current.conditionImageView.load("$ICON_BASE_URL${weather.current.icon}$ICON_LARGE$ICON_EXT")
         current.root.setOnClickListener { runDetailsScreen(weather.current, weather.city.name) }
@@ -174,7 +176,9 @@ class MainFragment: Fragment() {
         val adapter = MainRecyclerAdapter().apply {
             submitList(daily)
             setListener(object : ItemClickListener {
-                override fun onItemClicked() { runDailyScreen(daily) }
+                override fun onItemClicked() {
+                    runDailyScreen(daily)
+                }
             })
         }
         binding.mainRecyclerView.adapter = adapter
@@ -184,16 +188,25 @@ class MainFragment: Fragment() {
     private fun getMyLocation() {
         context?.let {
             // проверяем наличие разрешения на использование грубой геолокации устройства
-            if(ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 val locationManager = it.getSystemService<LocationManager>()
                 // получаем последнюю изывестную геолокацию устройства
-                val location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                val location =
+                    locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                 // запускаем поиск адреса по геолокации
                 getAddress(it, location)
                 // сразу же инициируем запрос актуальной геолокации у наиболее подходящего LocationProvider'a
                 val provider = locationManager?.getBestProvider(Criteria(), true)
                 provider?.let {
-                    locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE) { location ->
+                    locationManager.requestLocationUpdates(
+                        provider,
+                        MIN_TIME,
+                        MIN_DISTANCE
+                    ) { location ->
                         // как только геолокация получена, сохраняем координаты в настройках прложения
                         saveLocation(location)
                     }
@@ -224,11 +237,13 @@ class MainFragment: Fragment() {
             )
             if (currentCity != null) {                  // если город уже найден по последним известным геоданным:
                 if (currentCity!!.name != city.name) {  // если название города по актуальным геоданным отличается от текущего:
-                    currentCity = city                  // перезаписываем текущий город на актуральный
+                    currentCity =
+                        city                  // перезаписываем текущий город на актуральный
                     requestMeteoData(currentCity!!)     // запрашиеваем метеоданные для актуального города
                 }
             } else {                                    // если текущий город еще не определен:
-                currentCity = city                      // сохраняем город, найденнный по последним известным геоданным
+                currentCity =
+                    city                      // сохраняем город, найденнный по последним известным геоданным
                 requestMeteoData(currentCity!!)         // запрашиеваем метеоданные для этого города
             }
         } else {
